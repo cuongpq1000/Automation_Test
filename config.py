@@ -5,4 +5,3 @@ def info():
         "username": "director@rgz5.onmicrosoft.com",
         "password": "QLNS@456"
     }
-# "directory": r"C:\Users\dell\Documents\cuong\learning\test\Automation_Test\imageTest2.png"
