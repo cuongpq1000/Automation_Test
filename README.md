@@ -1,6 +1,7 @@
 # Automation_Test
     Run: py -m pip install selenium
     Run: py -m pip install Image
+    Run: py -m pip install pynput
 
 # Step create test case
     Step 1: In folder testCase create [testCaseName].py

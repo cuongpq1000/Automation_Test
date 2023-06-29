@@ -90,22 +90,21 @@ def sharePoint(driver, url, directory):
     # click upload button to show the list of option files
     uploadButton = driver.find_element(By.NAME, 'Upload')
     uploadButton.click()
-    # wait for 10 seconds
-    time.sleep(10)
+    # wait for 3 seconds
+    time.sleep(3)
     # click the file button to popup the window
     fileButton = driver.find_element(By.NAME, 'Files')
     fileButton.click()
 
-
-    # wait 10 seconds
-    time.sleep(10)
+    # wait 3 seconds
+    time.sleep(3)
     # type the local directory and upload into the share point
     keyboard = Controller()
     keyboard.type(directory)
     keyboard.press(Key.enter)
     keyboard.release(Key.enter)
-    # wait 10 seconds
-    time.sleep(10)
+    # wait 3 seconds
+    time.sleep(3)
     # come back to the sharepoint to double check
     driver.get(url)
     driver.maximize_window()
