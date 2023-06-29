@@ -1,4 +1,4 @@
-.png
+*.png
 /.vscode
-__pycahe__/
-*.py[cod]
+*.pyc
+__pycache__/
