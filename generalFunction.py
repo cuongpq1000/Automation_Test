@@ -1,6 +1,9 @@
 import time
+import os
 from selenium.webdriver.common.by import By
 from config import info
+from PIL import Image
+from datetime import datetime
 
 def nextSignIn(driver):
     button = driver.find_element(By.XPATH, "//input[@data-report-event = 'Signin_Submit']")
@@ -30,6 +33,36 @@ def login(driver):
 
     # Click Next
     nextSignIn(driver)
+
+def screenshot(driver, function, testCaseName, isOpen):
+    # Get now
+    now = datetime.now().strftime("%d_%m_%y_%H_%M_%S")
+
+    # Get current folder
+    current_dir = os.path.abspath(os.path.dirname(__file__))
+
+    # Create file name
+    fileName = f"{now}.png"
+
+    # Create folder path
+    path = os.path.join(current_dir, "screenshot", function, testCaseName)
+
+    # Create file path
+    filePath = f"{path}/{fileName}"
+
+    # Create folder
+    if not os.path.isdir(path):
+        os.makedirs(path)
+
+    # Save screenshot
+    driver.save_screenshot(filePath)
+
+    if isOpen:
+        # Loading the image
+        image = Image.open(filePath)
+        
+        # Showing the image
+        image.show()
 
 def beforeTest(driver, url):
     # Open link
