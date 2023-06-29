@@ -17,7 +17,7 @@ def login(driver):
     userName = driver.find_element(By.NAME, 'loginfmt')
 
     # Put value in User Name
-    userName.send_keys(info.get("username"))
+    userName.send_keys(info().get("username"))
 
     # Click Next
     nextSignIn(driver)
@@ -26,7 +26,7 @@ def login(driver):
     passWord = driver.find_element(By.NAME, "passwd")
 
     # Put value in PassWord
-    passWord.send_keys(info.get("password"))
+    passWord.send_keys(info().get("password"))
 
     # Click Next
     nextSignIn(driver)
@@ -35,8 +35,11 @@ def login(driver):
     nextSignIn(driver)
 
 def screenshot(driver, function, testCaseName, isOpen):
+    # Get today
+    today = datetime.now().strftime("%d_%m_%y")
+
     # Get now
-    now = datetime.now().strftime("%d_%m_%y_%H_%M_%S")
+    now = datetime.now().strftime("%H_%M_%S")
 
     # Get current folder
     current_dir = os.path.abspath(os.path.dirname(__file__))
@@ -45,7 +48,7 @@ def screenshot(driver, function, testCaseName, isOpen):
     fileName = f"{now}.png"
 
     # Create folder path
-    path = os.path.join(current_dir, "screenshot", function, testCaseName)
+    path = os.path.join(current_dir, "screenshot", function, testCaseName, today)
 
     # Create file path
     filePath = f"{path}/{fileName}"
@@ -53,6 +56,9 @@ def screenshot(driver, function, testCaseName, isOpen):
     # Create folder
     if not os.path.isdir(path):
         os.makedirs(path)
+
+    # Wait 2 seconds
+    time.sleep(2)
 
     # Save screenshot
     driver.save_screenshot(filePath)
