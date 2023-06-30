@@ -4,6 +4,7 @@
     Run: py -m pip install pynput
     Run: py -m pip install pandas
     Run: py -m pip install openpyxl
+    Run: py -m pip install xlsxwriter
 
 # Step create test case
     Step 1: In folder testCase create [testCaseName].py

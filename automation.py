@@ -1,3 +1,2 @@
 from testCase import *
-
-example()
+run()

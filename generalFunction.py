@@ -13,6 +13,14 @@ def nextSignIn(driver):
     # Wait 2 seconds
     time.sleep(2)
 
+def getElementByAttribute(driver, tag, attribute, value):
+    value = value.split(' ')
+    text = []
+    for item in value:
+        text.append(f"contains(@{attribute}, '{item}')")
+    xpath = f"//{tag}[{' and '.join(text)}]"
+    return driver.find_element(By.XPATH, xpath)
+
 def login(driver):
     # Find element: User Name
     userName = driver.find_element(By.NAME, 'loginfmt')
@@ -70,6 +78,7 @@ def screenshot(driver, function, testCaseName, isOpen):
         
         # Showing the image
         image.show()
+    return filePath
 
 def beforeTest(driver, url):
     # Open link
@@ -83,6 +92,14 @@ def beforeTest(driver, url):
 
     # login
     login(driver)
+    time.sleep(5)
+
+def getPath(path):
+    # Get current folder
+    current_dir = os.path.abspath(os.path.dirname(__file__))
+
+    # Create folder excel path
+    return os.path.join(current_dir, path)
 
 def sharePoint(driver, url, directory):
     # open sharepoint link

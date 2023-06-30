@@ -1,12 +1,9 @@
 import pandas as pd
 import json
 import os
-
-def run():
-    excel = readExcel('Demo.xlsx', 'Sheet1')
-    print("get cell [0,1]", getCell(excel, 0, 1))
-    print("get row [2]", getRow(excel, 2))
-    print("get col [1]", getCol(excel, 1))
+import io
+from generalFunction import *
+ap = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
 def readExcel(name, sheetname):
     df = pd.read_excel(name, sheet_name=sheetname, dtype=object, header=None)
@@ -20,7 +17,45 @@ def getRow(data, index):
 
 def getCol(data, index):
     return data[index].tolist()
-run()
+
+def get_resized_image_data(file_path, bound_width_height):
+    # get the image and resize it
+    im = Image.open(file_path)
+    im.thumbnail(bound_width_height, Image.ANTIALIAS)  # ANTIALIAS is important if shrinking
+
+    # stuff the image data into a bytestream that excel can read
+    im_bytes = io.BytesIO()
+    im.save(im_bytes, format='PNG')
+    return im_bytes
+
+def writeScreeshot(worksheet, screenshotImage):
+    col = 2; row = 1
+    for item in screenshotImage:
+        col = 2
+        for img in item:
+            worksheet.insert_image(f"{ap[col]}{row}", img, {'x_scale': 0.5, 'y_scale': 0.5})
+            col = col + 11
+        row = row + 20
+
+def writeExcel(data, fileName):
+    path = getPath(f"testCase/result/{fileName}")
+    writer = pd.ExcelWriter(path, engine='xlsxwriter')
+    screenshotImage = [];row = 0
+    for item in data:
+        screenshotImage.append(item["screenshot"])
+        del item["screenshot"]
+    
+        df = pd.DataFrame([item])
+        df.to_excel(writer, sheet_name='Sheet1', index=False, startcol=0,startrow=row)
+        row = row + 20
+
+    # Get the xlsxwriter workbook and worksheet objects.
+    worksheet = writer.sheets['Sheet1']
+    # Insert image.
+    writeScreeshot(worksheet, screenshotImage)
+
+    writer.close()
+
 
 def convertExceltoJSON(excelFile, jsonFile):
     # Get current folder
