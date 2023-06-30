@@ -1,6 +1,6 @@
 import pandas as pd
 import json
-import os
+from generalFunction import getfilePath
 
 def run():
     excel = readExcel('Demo.xlsx', 'Sheet1')
@@ -23,14 +23,10 @@ def getCol(data, index):
 run()
 
 def convertExceltoJSON(excelFile, jsonFile):
-    # Get current folder
-    current_dir = os.path.abspath(os.path.dirname(__file__))
-
-    # Create folder excel path
-    excelPath = os.path.join(current_dir, "testCase", "excel")
-
-    # Create file excel path
-    excelFilePath = f"{excelPath}\{excelFile}"
+    excelFilePath = getfilePath(
+        "testCase\excel",
+        excelFile
+    )
 
     # Read file excel
     Excel = pd.read_excel(excelFilePath)
@@ -38,11 +34,11 @@ def convertExceltoJSON(excelFile, jsonFile):
     # Convert Excel to JSON
     Json = Excel.to_json(orient='records')
 
-    # Create folder json path
-    jsonPath = os.path.join(current_dir, "testCase", "json")
-
     # Create file json path
-    jsonFilePath = f"{jsonPath}\{jsonFile}.json"
+    jsonFilePath = getfilePath(
+        "testCase\json",
+        jsonFile
+    )
 
     # Create json file
     out_file = open(jsonFilePath, "w")

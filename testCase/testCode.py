@@ -1,23 +1,18 @@
-import os
 from selenium import webdriver
 from config import info
-from generalFunction import beforeTest, screenshot, sharePoint
+from generalFunction import beforeTest, screenshot, sharePoint, getfilePath
+from excel import convertExceltoJSON
 
 # Declare driver Chrome
 driver = webdriver.Chrome()
 
 def example():
-    beforeTest(driver, info().get('appUrl'))
+    convertExceltoJSON("file_example_XLS_10.xls", "upload_demo.json")
 
-    # screenshot(driver, "home", "test_home_screen", True)
+    beforeTest(driver, info().get('sharepointUrl'))
 
-    # Get current folder
-    current_dir = os.path.abspath(os.path.dirname(__file__))
-
-    # Create folder path
-    path = os.path.join(current_dir, "json")
-
-    # Create file path
-    filePath = f"{path}\demo.json"
+    filePath = getfilePath("testCase\json", "upload_demo.json")
 
     sharePoint(driver, info().get('sharepointUrl'), filePath)
+
+    screenshot(driver, "sharepoint", "upload_file_json", False)

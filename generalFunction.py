@@ -85,26 +85,35 @@ def beforeTest(driver, url):
     login(driver)
 
 def sharePoint(driver, url, directory):
-    # open sharepoint link
-    driver.get(url)
     # click upload button to show the list of option files
     uploadButton = driver.find_element(By.NAME, 'Upload')
     uploadButton.click()
+
     # wait for 3 seconds
     time.sleep(3)
+
     # click the file button to popup the window
     fileButton = driver.find_element(By.NAME, 'Files')
     fileButton.click()
 
     # wait 3 seconds
     time.sleep(3)
+    
     # type the local directory and upload into the share point
     keyboard = Controller()
     keyboard.type(directory)
     keyboard.press(Key.enter)
     keyboard.release(Key.enter)
+    
     # wait 3 seconds
     time.sleep(3)
-    # come back to the sharepoint to double check
-    driver.get(url)
-    driver.maximize_window()
+
+def getfilePath(folders, fileName):
+    # Get current folder
+    current_dir = os.path.abspath(os.path.dirname(__file__))
+
+    # Create folder path
+    folderPath = os.path.join(current_dir, folders)
+
+    # Create file path
+    return f"{folderPath}\{fileName}"
