@@ -1,7 +1,6 @@
 import numpy as np
 from selenium import webdriver
-from excel import *
-from generalFunction import *
+from function import *
 import time
 
 def readTestCase(data):
