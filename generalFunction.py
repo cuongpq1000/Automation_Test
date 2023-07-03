@@ -107,4 +107,5 @@ def sharePoint(driver, url, directory):
     time.sleep(3)
     # come back to the sharepoint to double check
     driver.get(url)
-    driver.maximize_window()
+    # wait 3 seconds
+    time.sleep(3)
