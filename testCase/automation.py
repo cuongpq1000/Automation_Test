@@ -1,6 +1,7 @@
 import numpy as np
 from selenium import webdriver
 from function import *
+from generalFunction import *
 import time
 
 def readTestCase(data):
@@ -44,7 +45,7 @@ def excuteTest(functionName, testCase):
 
 
 def run():
-    path = getPath("testCase/input/Demo.xlsx")
+    path = getPath("testCase/testScript/Demo.xlsx")
     df = readExcel(path, "Sheet1")
     functionName = getCell(df, 0, 0)
     data = df.values[2:]

@@ -1,7 +1,8 @@
 import os
 from selenium import webdriver
 from config import info
-from generalFunction import beforeTest, screenshot, sharePoint
+from function import *
+from generalFunction import *
 
 # Declare driver Chrome
 driver = webdriver.Chrome()

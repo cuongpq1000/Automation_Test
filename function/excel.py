@@ -2,7 +2,8 @@ import pandas as pd
 import json
 import os
 import io
-from generalFunction import *
+from PIL import Image
+from generalFunction import getPath
 ap = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
 def readExcel(name, sheetname):
@@ -38,7 +39,7 @@ def writeScreeshot(worksheet, screenshotImage):
         row = row + 20
 
 def writeExcel(data, fileName):
-    path = getPath(f"testCase/result/{fileName}")
+    path = getPath(f"testCase/testResult/{fileName}")
     writer = pd.ExcelWriter(path, engine='xlsxwriter')
     screenshotImage = [];row = 0
     for item in data:

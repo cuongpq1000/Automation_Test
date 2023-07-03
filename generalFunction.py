@@ -13,14 +13,6 @@ def nextSignIn(driver):
     # Wait 2 seconds
     time.sleep(2)
 
-def getElementByAttribute(driver, tag, attribute, value):
-    value = value.split(' ')
-    text = []
-    for item in value:
-        text.append(f"contains(@{attribute}, '{item}')")
-    xpath = f"//{tag}[{' and '.join(text)}]"
-    return driver.find_element(By.XPATH, xpath)
-
 def login(driver):
     # Find element: User Name
     userName = driver.find_element(By.NAME, 'loginfmt')
